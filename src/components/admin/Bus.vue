@@ -30,6 +30,12 @@
                 <template v-slot:cell(transportation_type)="data">
                   {{ data.item.category.transportation_type }}
                 </template>
+                <template v-slot:cell(bus_image)="data">
+                  <img
+                    style="width: 200px; height: 100px; border-radius: 5%"
+                    :src="'http://localhost:8000/uploads/' + data.item.image"
+                  />
+                </template>
               </b-table>
               <b-pagination
                 v-model="currentPage"
@@ -140,6 +146,16 @@
             v-model="till"
           />
         </div>
+        <div class="form-group">
+          <label for="foto" class="col-form-label">File</label>
+          <input
+            type="file"
+            name="foto"
+            class="form-control"
+            id="foto"
+            placeholder="upload"
+          />
+        </div>
       </form>
     </b-modal>
 
@@ -221,6 +237,16 @@
             v-model="till"
           />
         </div>
+        <div class="form-group">
+          <label for="foto" class="col-form-label">File</label>
+          <input
+            type="file"
+            name="foto"
+            class="form-control"
+            id="foto"
+            placeholder="upload"
+          />
+        </div>
       </form>
     </b-modal>
   </div>
@@ -240,6 +266,7 @@ module.exports = {
       price: "",
       departure: "",
       till: "",
+      image: "",
       action: "",
       message: "",
       pagination: "",
@@ -252,7 +279,7 @@ module.exports = {
       user: "",
       fields: [
         // "id_transportation",
-        // "transportation_type",
+        "bus_image",
         "transportation_name",
         "p_depart",
         "p_till",
@@ -299,6 +326,8 @@ module.exports = {
       this.p_till = "";
       this.departure = "";
       this.till = "";
+      this.image = "";
+      document.getElementById("image").value = null;
     },
 
     Edit: function (item) {
@@ -311,6 +340,8 @@ module.exports = {
       this.price = item.price;
       this.departure = item.departure;
       this.till = item.till;
+      this.image = item.image;
+      document.getElementById("image").value = null;
     },
 
     Save: function () {
@@ -327,6 +358,7 @@ module.exports = {
         form.append("price", this.price);
         form.append("departure", this.departure);
         form.append("till", this.till);
+        form.append("image", document.getElementById("image").files[0]);
 
         this.axios
           .post("/bus", form, conf)
@@ -351,6 +383,7 @@ module.exports = {
           price: this.price,
           departure: this.departure,
           till: this.till,
+          image: this.image,
         };
         this.axios
           .put("/bus/" + this.id_transportation, form, conf)

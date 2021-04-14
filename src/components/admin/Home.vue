@@ -27,7 +27,31 @@
               </div>
             </div>
           </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <h5 class="card-header">Data Pesawat</h5>
+              <div class="card-body">
+                <p class="card-text">
+                  With supporting text below as a natural lead-in to additional
+                  content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
           </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <h5 class="card-header">Data Bus</h5>
+              <div class="card-body">
+                <p class="card-text">
+                  With supporting text below as a natural lead-in to additional
+                  content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-md-6 col-lg-6 grid-margin stretch-card">
         <div class="card">
@@ -35,7 +59,7 @@
             <div class="d-flex justify-content-between">
               <h6 class="card-title">
                 <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-                  Masyarakat
+                Masyarakat
               </h6>
             </div>
             <div class="list d-flex align-items-center border-bottom pb-3">
