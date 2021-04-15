@@ -6,7 +6,7 @@
           <div class="card-body">
             <p class="card-title float-left"><b>JADWAL KERETA</b></p>
             <p class="card-description float-right">
-              <b-button variant="info" v-b-modal.modalEdit v-on:click="Add"
+              <b-button variant="info" v-b-modal.modal v-on:click="Add"
                 ><i class="mdi mdi-plus btn-icon-prepend"></i> Add</b-button
               >
             </p>
@@ -17,7 +17,7 @@
                     size="sm"
                     variant="success"
                     v-on:click="Edit(data.item)"
-                    v-b-modal.modalUpdate
+                    v-b-modal.modal
                     ><i class="mdi mdi-pencil"></i> Edit</b-button
                   >
                   <b-button
@@ -29,6 +29,12 @@
                 </template>
                 <template v-slot:cell(transportation_type)="data">
                   {{ data.item.category.transportation_type }}
+                </template>
+                <template v-slot:cell(train_image)="data">
+                  <img
+                    style="width: 200px; height: 100px; border-radius: 5%"
+                    :src="'http://localhost:8000/uploads/' + data.item.image"
+                  />
                 </template>
               </b-table>
               <b-pagination
@@ -55,7 +61,7 @@
         </div>
       </div>
     </div>
-    <b-modal id="modalEdit" @ok="Save">
+    <b-modal id="modal" @ok="Save">
       <template v-slot:modal-title> Form Input </template>
       <form ref="form">
         <div class="form-group">
@@ -140,85 +146,14 @@
             v-model="till"
           />
         </div>
-      </form>
-    </b-modal>
-
-    <b-modal id="modalUpdate" @ok="Save">
-      <template v-slot:modal-title> Form Input </template>
-      <form ref="form">
         <div class="form-group">
-          <label for="transportation_name" class="col-form-label"
-            >Transportation Name</label
-          >
+          <label for="image" class="col-form-label">File</label>
           <input
-            type="text"
-            name="transportation_name"
+            type="file"
+            name="image"
             class="form-control"
-            id="transportation_name"
-            placeholder="name transportation"
-            v-model="transportation_name"
-          />
-        </div>
-        <div class="form-group">
-          <label for="id_category" class="col-form-label">ID Category</label>
-          <input
-            name="id_category"
-            class="form-control"
-            id="id_category"
-            v-model="id_category"
-          />
-        </div>
-        <div class="form-group">
-          <label for="p_depart" class="col-form-label"
-            >Place of Departure</label
-          >
-          <input
-            name="p_depart"
-            class="form-control"
-            id="p_depart"
-            v-model="p_depart"
-          />
-        </div>
-        <div class="form-group">
-          <label for="p_till" class="col-form-label">Place of Till</label>
-          <input
-            name="p_till"
-            class="form-control"
-            id="p_till"
-            v-model="p_till"
-          />
-        </div>
-        <div class="form-group">
-          <label for="price" class="col-form-label">Price</label>
-          <input
-            type="numeric"
-            name="price"
-            class="form-control"
-            id="price"
-            placeholder="price"
-            v-model="price"
-          />
-        </div>
-        <div class="form-group">
-          <label for="departure" class="col-form-label">Departure</label>
-          <input
-            type="datetime-local"
-            name="departure"
-            class="form-control"
-            id="departure"
-            placeholder=""
-            v-model="departure"
-          />
-        </div>
-        <div class="form-group">
-          <label for="till" class="col-form-label">till</label>
-          <input
-            type="datetime-local"
-            name="till"
-            class="form-control"
-            id="till"
-            placeholder=""
-            v-model="till"
+            id="image"
+            placeholder="upload"
           />
         </div>
       </form>
@@ -240,6 +175,7 @@ module.exports = {
       price: "",
       departure: "",
       till: "",
+      image: "",
       action: "",
       message: "",
       pagination: "",
@@ -252,7 +188,7 @@ module.exports = {
       user: "",
       fields: [
         // "id_transportation",
-        // "transportation_type",
+        "train_image",
         "transportation_name",
         "p_depart",
         "p_till",
@@ -299,6 +235,8 @@ module.exports = {
       this.p_till = "";
       this.departure = "";
       this.till = "";
+      this.image = "";
+      document.getElementById("image").value = null;
     },
 
     Edit: function (item) {
@@ -327,6 +265,7 @@ module.exports = {
         form.append("price", this.price);
         form.append("departure", this.departure);
         form.append("till", this.till);
+        form.append("image", document.getElementById("image").files[0]);
 
         this.axios
           .post("/train", form, conf)

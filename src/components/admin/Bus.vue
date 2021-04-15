@@ -17,7 +17,7 @@
                     size="sm"
                     variant="success"
                     v-on:click="Edit(data.item)"
-                    v-b-modal.modalUpdate
+                    v-b-modal.modalEdit
                     ><i class="mdi mdi-pencil"></i> Edit</b-button
                   >
                   <b-button
@@ -147,19 +147,19 @@
           />
         </div>
         <div class="form-group">
-          <label for="foto" class="col-form-label">File</label>
+          <label for="image" class="col-form-label">File</label>
           <input
             type="file"
-            name="foto"
+            name="image"
             class="form-control"
-            id="foto"
+            id="image"
             placeholder="upload"
           />
         </div>
       </form>
     </b-modal>
 
-    <b-modal id="modalUpdate" @ok="Save">
+    <!-- <b-modal id="modalUpdate" @ok="Save">
       <template v-slot:modal-title> Form Input </template>
       <form ref="form">
         <div class="form-group">
@@ -238,17 +238,17 @@
           />
         </div>
         <div class="form-group">
-          <label for="foto" class="col-form-label">File</label>
+          <label for="image" class="col-form-label">File</label>
           <input
             type="file"
-            name="foto"
+            name="image"
             class="form-control"
-            id="foto"
+            id="image"
             placeholder="upload"
           />
         </div>
       </form>
-    </b-modal>
+    </b-modal> -->
   </div>
 </template>
 
@@ -265,6 +265,7 @@ module.exports = {
       p_till: "",
       price: "",
       departure: "",
+      name: "",
       till: "",
       image: "",
       action: "",
